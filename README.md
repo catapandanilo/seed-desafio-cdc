@@ -1,4 +1,4 @@
-# casadocodigo project
+# seed-desafio-cdc/casadocodigo project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
