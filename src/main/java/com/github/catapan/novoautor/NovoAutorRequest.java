@@ -10,15 +10,15 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 public class NovoAutorRequest {
 
     @NotBlank
-    String nome;
+    public String nome;
 
     @NotBlank
     @Email
-    String email;
+    public String email;
 
     @NotBlank
     @Size(max = 400)
-    String descricao;
+    public String descricao;
 
     public NovoAutorRequest(@NotBlank String nome, @NotBlank @Email String email,
             @NotBlank @Size(max = 400) String descricao) {
@@ -26,4 +26,8 @@ public class NovoAutorRequest {
         this.email = email;
         this.descricao = descricao;
     }
+
+	public Autor toModel() {
+		return new Autor(this.nome, this.email, this.descricao);
+	}
 }
