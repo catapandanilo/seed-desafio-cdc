@@ -4,6 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.github.catapan.validator.UniqueValue;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
@@ -14,6 +16,7 @@ public class NovoAutorRequest {
 
     @NotBlank
     @Email
+    @UniqueValue(entity = Autor.class, field = "email")
     public String email;
 
     @NotBlank
