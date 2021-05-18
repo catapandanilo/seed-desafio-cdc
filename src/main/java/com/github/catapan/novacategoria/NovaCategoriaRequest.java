@@ -1,13 +1,15 @@
 package com.github.catapan.novacategoria;
 
+import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.NotBlank;
 
-import com.github.catapan.validator.UniqueValue;
+import com.github.catapan.validator.DTO;
+import com.github.catapan.validator.ValidDTO;
 
-public class NovaCategoriaRequest {
+@ValidDTO
+public class NovaCategoriaRequest implements DTO {
 
     @NotBlank
-    @UniqueValue(entity = Categoria.class, field = "nome")
     public String nome;
 
     public String getNome() {
@@ -30,5 +32,20 @@ public class NovaCategoriaRequest {
     // public NovaCategoriaRequest(String nome) {
     // this.nome = nome;
     // }
+
+    public Categoria toModel() {
+		return new Categoria(this.nome);
+	}
+
+    @Override
+	public boolean isValid(ConstraintValidatorContext constraintValidatorContext) {
+		constraintValidatorContext.disableDefaultConstraintViolation();
+		if (Categoria.find("nome", nome).count() > 0) {
+			constraintValidatorContext.buildConstraintViolationWithTemplate("Nome já cadastrado!")
+					.addPropertyNode("nome").addConstraintViolation();
+			return false;
+		}
+		return true;
+	}
 
 }
