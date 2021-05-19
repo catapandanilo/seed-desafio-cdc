@@ -31,11 +31,21 @@ public class Autor extends PanacheEntityBase {
     public String descricao;
 
     @Deprecated
-    public Autor() {}
+    public Autor() {
+    }
 
     public Autor(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max = 400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
     }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getDescricao() {
+        return this.descricao;
+    }
+
 }
